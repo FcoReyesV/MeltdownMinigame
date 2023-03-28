@@ -1,6 +1,6 @@
 using UnityEngine;
 namespace MeltdownGame.Player
-{    
+{
     public class PlayerBuilder
     {
         private PlayerController _prefab;

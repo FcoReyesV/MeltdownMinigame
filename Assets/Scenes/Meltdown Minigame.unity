@@ -1647,6 +1647,7 @@ MonoBehaviour:
   _resultsView: {fileID: 798127752}
   _playerSelectionCanvasGroup: {fileID: 1334746317}
   _playerControllerBase: {fileID: 6656579686295080124, guid: 145a6183b915b4048a96e53c94bd592f, type: 3}
+  _NPCControllerBase: {fileID: 3369854137884983867, guid: 286be840fc8083443820436656ee4a91, type: 3}
   _offsetYBase: 1.2
   _bases:
   - {fileID: 203459306}

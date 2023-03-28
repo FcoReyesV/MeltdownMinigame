@@ -20,6 +20,9 @@ namespace MeltdownGame.PlayerSelection
         public Color PlayerColor;
         public KeyCode JumpKey;
         public KeyCode DuckKey;
+
+        public bool NpcSelected => _npcSelected;
+
         private void Start()
         {
             FillDropdown(_jumpDropdown);

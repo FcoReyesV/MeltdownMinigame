@@ -15,6 +15,7 @@ namespace MeltdownGame.Core
         [SerializeField] private ResultsView _resultsView = null;
         [SerializeField] private CanvasGroup _playerSelectionCanvasGroup = null;
         [SerializeField] private PlayerController _playerControllerBase = null;
+        [SerializeField] private NPCController _NPCControllerBase = null;
         [SerializeField] private float _offsetYBase = 0;
         [SerializeField] private Transform[] _bases = null;
         [SerializeField] private PlayerSelectorView[] _selectorsView = null;
@@ -24,6 +25,7 @@ namespace MeltdownGame.Core
         private float _playersActive;
         private void Start() 
         {
+            Application.targetFrameRate = 60;
             _resultsView.ToggleCanvasGroup(false);    
         }
         private void OnEnable() 
@@ -48,18 +50,42 @@ namespace MeltdownGame.Core
         {
             for (int i = 0; i < _selectorsView.Length; i++)
             {
-                PlayerBuilder playerBuilder = new PlayerBuilder();
-                playerBuilder.FromPlayerControllerPrefab(_playerControllerBase);
-                playerBuilder.WithJumpKey(_selectorsView[i].JumpKey);
-                playerBuilder.WithDuckKey(_selectorsView[i].DuckKey);
-                playerBuilder.WithPlayerColor(_selectorsView[i].PlayerColor);
-                var player = playerBuilder.Build();
-                _playersTransform.Add(player.transform);
-                Vector3 initialPosition = new Vector3(_bases[i].position.x, _bases[i].position.y + _offsetYBase, _bases[i].position.z);
-                player.transform.position = initialPosition;
+                if (_selectorsView[i].NpcSelected)
+                {
+                    BuildNPC(i);
+                }else
+                {
+                    BuildPlayer(i);
+                }
 
             }
         }
+
+        private void BuildPlayer(int index)
+        {
+            PlayerBuilder playerBuilder = new PlayerBuilder();
+            playerBuilder.FromPlayerControllerPrefab(_playerControllerBase);
+            playerBuilder.WithJumpKey(_selectorsView[index].JumpKey);
+            playerBuilder.WithDuckKey(_selectorsView[index].DuckKey);
+            playerBuilder.WithPlayerColor(_selectorsView[index].PlayerColor);
+            var player = playerBuilder.Build();
+            SetInitialPosition(player.transform, index);
+        }
+        private void BuildNPC(int index)
+        {
+            NPCBuilder npcBuilder = new NPCBuilder();
+            npcBuilder.FromNPCControllerPrefab(_NPCControllerBase);
+            npcBuilder.WithNPCColor(_selectorsView[index].PlayerColor);
+            var npc = npcBuilder.Build();
+            SetInitialPosition(npc.transform, index);
+        }
+        private void SetInitialPosition(Transform playerTransform, int index)
+        {
+            _playersTransform.Add(playerTransform);
+            Vector3 initialPosition = new Vector3(_bases[index].position.x, _bases[index].position.y + _offsetYBase, _bases[index].position.z);
+            playerTransform.position = initialPosition;
+        }
+
         private void UpdatePlayerAlive(Transform playerTouchingLava)
         {
             if (_playersTransform.Contains(playerTouchingLava))
