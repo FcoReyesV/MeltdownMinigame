@@ -1,0 +1,19 @@
+{
+    "name": "Meltdown.Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:808254e45ac71c94694d166cdc493713",
+        "GUID:2314ebbc5e8fcfb4daecc3e65d94bef2",
+        "GUID:663a48956416d5546b1fe0955262298d",
+        "GUID:39e1df377e193954ca80c1236000dda5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
