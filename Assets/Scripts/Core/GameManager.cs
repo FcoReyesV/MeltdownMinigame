@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using MeltdownGame.Results;
 using MeltdownGame.Player;
 using MeltdownGame.PlayerSelection;
@@ -8,6 +9,7 @@ using MeltdownGame.Player.Conditions;
 
 namespace MeltdownGame.Core
 {
+    
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private ResultsView _resultsView = null;
@@ -17,6 +19,7 @@ namespace MeltdownGame.Core
         [SerializeField] private Transform[] _bases = null;
         [SerializeField] private PlayerSelectorView[] _selectorsView = null;
         [SerializeField] private ObjectRotator _objectRotator = null;
+        [SerializeField] private GameObject _pauseButton = null;
         private List<Transform> _playersTransform = new List<Transform>();
         private float _playersActive;
         private void Start() 
@@ -38,6 +41,7 @@ namespace MeltdownGame.Core
             BuildPlayers();
             ToggleCanvasGroup(false);
             _objectRotator.enabled = true;
+            _pauseButton.SetActive(true);
         }
 
         private void BuildPlayers()
@@ -79,6 +83,12 @@ namespace MeltdownGame.Core
             _playerSelectionCanvasGroup.interactable = state;
             _playerSelectionCanvasGroup.alpha = alpha;
             _playerSelectionCanvasGroup.blocksRaycasts = state;
+        }
+
+        public void LoadScene(int index)
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(index);
         }
     
     }

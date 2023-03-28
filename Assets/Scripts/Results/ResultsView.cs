@@ -8,9 +8,11 @@ namespace MeltdownGame.Results
     public class ResultsView : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _resultCanvasGroup = null;
+        [SerializeField] private GameObject _pauseButton = null;
 
         public void ShowVictory()
         {
+            _pauseButton.SetActive(false);
             ToggleCanvasGroup(true);
         }
 
